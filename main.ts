@@ -352,8 +352,8 @@ namespace dht11 {
      * @param unit desired conversion unit
      */
     //% block="S14 Temp&Humi \\| Read temperature in degree $unit from port $sig"
-    //% unit.defl=TemperatureType.Celsius
-    //% sig.defl=PinKit.P0 sig.fieldEditor="gridpicker" sig.fieldOptions.columns=3
+    //% unit.defl=dht11.TemperatureType.Celsius
+    //% sig.defl=dht11.PinKit.P0 sig.fieldEditor="gridpicker" sig.fieldOptions.columns=3
     //% inlineInputMode=inline
     //% weight=2
     export function readTemperature(unit: TemperatureType, sig: PinKit): number {
