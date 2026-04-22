@@ -546,6 +546,14 @@ namespace ds18b20 {
     export function readTemperature(sig: PinKit, unit: TemperatureType): number {
         /* Port? */
         let pin;
+        // 1. Ép kiểu sig về số nguyên để chắc chắn nó là index
+        let index = Math.floor(sig);
+
+        // 2. Kiểm tra nếu index nằm ngoài phạm vi mảng
+        if (index < 0 || index > 5) {
+            index = 0; // Hoặc trả về một giá trị lỗi như -999
+        }
+
         switch (sig) {
             case PinKit.P0: pin = DigitalPin.P0; break;
             case PinKit.P1: pin = DigitalPin.P1; break;
@@ -554,6 +562,10 @@ namespace ds18b20 {
             case PinKit.P14: pin = DigitalPin.P14; break;
             case PinKit.P15: pin = DigitalPin.P15; break;
         }
+
+        // 3. Khi truy cập mảng, hãy đảm bảo có giá trị mặc định
+        let lastV = _lastTemp[index];
+        if (lastV === undefined) lastV = 0;
 
         /* Transaction Sequence
         **
@@ -591,11 +603,17 @@ namespace ds18b20 {
         */
         temperature = high << 8 | low;
         temperature = temperature / 16;
-        if (temperature > 130) {
-            temperature = _lastTemp[sig];
-        }
-        _lastTemp[sig] = temperature;
 
+        // if (temperature > 130) {
+        //     temperature = _lastTemp[sig];
+        // }
+        // _lastTemp[sig] = temperature;
+        
+        if (temperature > 130) {
+            temperature = lastV; // Sử dụng giá trị an toàn đã check
+        }
+        _lastTemp[index] = temperature;
+        
         let value;
         
         /* Get value temperature */
