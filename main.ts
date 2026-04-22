@@ -1361,6 +1361,7 @@ namespace ds3231 {
     //% inlineInputMode=inline
     //% weight=3
     //% group="Alarm"
+    //% blockHidden=true
     export function setAlarm_byChoose(hour: number, minute: number, types: Alarm) {
         alarm[0] = hour;
         alarm[1] = minute;
@@ -1378,6 +1379,7 @@ namespace ds3231 {
     //% inlineInputMode=inline
     //% weight=2
     //% group="Alarm"
+    //% blockHidden=true
     export function setAlarm_byCommands(ticks: string, types: Alarm): boolean {
         /**
          * String handling:
@@ -1410,6 +1412,7 @@ namespace ds3231 {
     //% inlineInputMode=inline
     //% weight=1
     //% group="Alarm"
+    //% blockHidden=true
     export function checkAlarm(): boolean {
         if (bcdToDec(regValue(DS3231_REG_HOUR)) == alarm[0]) {
             if (bcdToDec(regValue(DS3231_REG_MINUTE)) == alarm[1]) {
